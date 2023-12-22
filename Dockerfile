@@ -1,6 +1,11 @@
 FROM node:8.15-slim
 LABEL maintainer "N2SM <support@n2sm.net>"
 
+# Update stretch repositories
+RUN sed -i -e 's/deb.debian.org/archive.debian.org/g' \
+           -e 's|security.debian.org|archive.debian.org/|g' \
+           -e '/stretch-updates/d' /etc/apt/sources.list
+
 # Install latest npm
 RUN apt-get update \
  && apt-get upgrade -y \
